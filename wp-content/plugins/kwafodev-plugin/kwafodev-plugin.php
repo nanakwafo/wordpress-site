@@ -35,6 +35,12 @@ class KwafodevPlugin
     }
 
     /**
+     *   reggister enqueue method
+     */
+    public function register(){
+            add_action('admin_enqueue_scripts',array($this,'enqueue'));
+    }
+    /**
      * activate method
      */
     public function activate(){
@@ -51,14 +57,23 @@ class KwafodevPlugin
     }
 
 
-   public function custom_post_type(){
+    /**
+     *custom post_type method
+     */
+    public function custom_post_type(){
         register_post_type('book',['public' =>true, 'label'=>'Books']);
+   }
+   function enqueue(){
+        //enqueue all scripts
+       wp_enqueue_style('mypluginstyle',plugins_url('/assets/mysite.css',__FILE__));
+       wp_enqueue_script('mypluginstyle',plugins_url('/assets/myscript.js',__FILE__));
    }
 }
 
 //instantiate class
 if( class_exists('KwafodevPlugin')){
     $kwafodevPlugin = new KwafodevPlugin();
+    $kwafodevPlugin->register();
 }
 
 
