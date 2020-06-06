@@ -24,7 +24,7 @@ if(! defined('ABSPATH')){
  */
 class KwafodevPlugin
 {
-
+    public $plugin;
 
     /**
      * KwafodevPlugin constructor.
@@ -32,6 +32,7 @@ class KwafodevPlugin
     public function __construct()
     {
         add_action('init',array($this,'custom_post_type'));
+        $this->plugin = plugin_basename(__FILE__); //plugin name
     }
 
     /**
@@ -40,8 +41,14 @@ class KwafodevPlugin
     public function register(){
             add_action('admin_enqueue_scripts',array($this,'enqueue'));
             add_action('admin_menu', array($this,'add_admin_pages'));
+            add_filter('plugin_action_links_'.$this->plugin,array($this,'settings_link'));
     }
-
+  public function settings_link($links){
+    //add custom settings link
+      $settings_link ='<a href="admin.php?page=kwafodev_plugin">Setting</a>';
+      array_push($links,$settings_link);
+      return $links;
+  }
     /**
      * admin pages method
      */
