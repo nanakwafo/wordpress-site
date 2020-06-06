@@ -448,7 +448,7 @@ class Theme_Upgrader extends WP_Upgrader {
 	 * Check that the package source contains a valid theme.
 	 *
 	 * Hooked to the {@see 'upgrader_source_selection'} filter by Theme_Upgrader::install().
-	 * It will return an error if the theme doesn't have style.css or index.php
+	 * It will return an error if the theme doesn't have style.css or admin.php
 	 * files.
 	 *
 	 * @since 3.3.0
@@ -504,15 +504,15 @@ class Theme_Upgrader extends WP_Upgrader {
 			);
 		}
 
-		// If it's not a child theme, it must have at least an index.php to be legit.
-		if ( empty( $info['Template'] ) && ! file_exists( $working_directory . 'index.php' ) ) {
+		// If it's not a child theme, it must have at least an admin.php to be legit.
+		if ( empty( $info['Template'] ) && ! file_exists( $working_directory . 'admin.php' ) ) {
 			return new WP_Error(
 				'incompatible_archive_theme_no_index',
 				$this->strings['incompatible_archive'],
 				sprintf(
-					/* translators: %s: index.php */
+					/* translators: %s: admin.php */
 					__( 'The theme is missing the %s file.' ),
-					'<code>index.php</code>'
+					'<code>admin.php</code>'
 				)
 			);
 		}

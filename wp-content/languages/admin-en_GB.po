@@ -5130,7 +5130,7 @@ msgstr "Default is %s"
 msgid "The language pack is missing either the %1$s or %2$s files."
 msgstr "The language pack is missing either the %1$s or %2$s files."
 
-#. translators: %s: index.php
+#. translators: %s: admin.php
 #: wp-admin/includes/class-theme-upgrader.php:514
 msgid "The theme is missing the %s file."
 msgstr "The theme is missing the %s file."

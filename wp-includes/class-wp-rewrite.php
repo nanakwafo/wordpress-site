@@ -170,7 +170,7 @@ class WP_Rewrite {
 	 * @since 1.5.0
 	 * @var string
 	 */
-	public $index = 'index.php';
+	public $index = 'admin.php';
 
 	/**
 	 * Variable name to use for regex matches in the rewritten query.
@@ -209,7 +209,7 @@ class WP_Rewrite {
 	var $extra_rules_top = array();
 
 	/**
-	 * Rules that don't redirect to WordPress' index.php.
+	 * Rules that don't redirect to WordPress' admin.php.
 	 *
 	 * These rules are written to the mod_rewrite portion of the .htaccess,
 	 * and are added by add_external_rule().
@@ -356,11 +356,11 @@ class WP_Rewrite {
 	/**
 	 * Determines whether permalinks are being used and rewrite module is not enabled.
 	 *
-	 * Means that permalink links are enabled and index.php is in the URL.
+	 * Means that permalink links are enabled and admin.php is in the URL.
 	 *
 	 * @since 1.5.0
 	 *
-	 * @return bool Whether permalink links are enabled and index.php is in the URL.
+	 * @return bool Whether permalink links are enabled and admin.php is in the URL.
 	 */
 	public function using_index_permalinks() {
 		if ( empty( $this->permalink_structure ) ) {
@@ -374,11 +374,11 @@ class WP_Rewrite {
 	/**
 	 * Determines whether permalinks are being used and rewrite module is enabled.
 	 *
-	 * Using permalinks and index.php is not in the URL.
+	 * Using permalinks and admin.php is not in the URL.
 	 *
 	 * @since 1.5.0
 	 *
-	 * @return bool Whether permalink links are enabled and index.php is NOT in the URL.
+	 * @return bool Whether permalink links are enabled and admin.php is NOT in the URL.
 	 */
 	public function using_mod_rewrite_permalinks() {
 		return $this->using_permalinks() && ! $this->using_index_permalinks();
@@ -897,7 +897,7 @@ class WP_Rewrite {
 
 		$num_tokens = count( $tokens[0] );
 
-		$index          = $this->index; // Probably 'index.php'.
+		$index          = $this->index; // Probably 'admin.php'.
 		$feedindex      = $index;
 		$trackbackindex = $index;
 		$embedindex     = $index;
@@ -1509,10 +1509,10 @@ class WP_Rewrite {
 		$rules .= "RewriteEngine On\n";
 		$rules .= "RewriteBase $home_root\n";
 
-		// Prevent -f checks on index.php.
+		// Prevent -f checks on admin.php.
 		$rules .= "RewriteRule ^index\.php$ - [L]\n";
 
-		// Add in the rules that don't redirect to WP's index.php (and thus shouldn't be handled by WP at all).
+		// Add in the rules that don't redirect to WP's admin.php (and thus shouldn't be handled by WP at all).
 		foreach ( (array) $this->non_wp_rules as $match => $query ) {
 			// Apache 1.3 does not support the reluctant (non-greedy) modifier.
 			$match = str_replace( '.+?', '.+', $match );
@@ -1597,7 +1597,7 @@ class WP_Rewrite {
 						<add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
 						<add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
 					</conditions>
-				<action type="Rewrite" url="index.php" />
+				<action type="Rewrite" url="admin.php" />
 			</rule>';
 
 		if ( $add_parent_tags ) {
@@ -1635,7 +1635,7 @@ class WP_Rewrite {
 	public function add_rule( $regex, $query, $after = 'bottom' ) {
 		if ( is_array( $query ) ) {
 			$external = false;
-			$query    = add_query_arg( $query, 'index.php' );
+			$query    = add_query_arg( $query, 'admin.php' );
 		} else {
 			$index = false === strpos( $query, '?' ) ? strlen( $query ) : strpos( $query, '?' );
 			$front = substr( $query, 0, $index );
@@ -1643,7 +1643,7 @@ class WP_Rewrite {
 			$external = $front != $this->index;
 		}
 
-		// "external" = it doesn't correspond to index.php.
+		// "external" = it doesn't correspond to admin.php.
 		if ( $external ) {
 			$this->add_external_rule( $regex, $query );
 		} else {
@@ -1656,7 +1656,7 @@ class WP_Rewrite {
 	}
 
 	/**
-	 * Adds a rewrite rule that doesn't correspond to index.php.
+	 * Adds a rewrite rule that doesn't correspond to admin.php.
 	 *
 	 * @since 2.1.0
 	 *

@@ -398,9 +398,9 @@ function get_mu_plugins() {
 		$wp_plugins[ $plugin_file ] = $plugin_data;
 	}
 
-	if ( isset( $wp_plugins['index.php'] ) && filesize( WPMU_PLUGIN_DIR . '/index.php' ) <= 30 ) {
+	if ( isset( $wp_plugins['admin.php'] ) && filesize( WPMU_PLUGIN_DIR . '/admin.php' ) <= 30 ) {
 		// Silence is golden.
-		unset( $wp_plugins['index.php'] );
+		unset( $wp_plugins['admin.php'] );
 	}
 
 	uasort( $wp_plugins, '_sort_uname_callback' );
@@ -1593,7 +1593,7 @@ function add_users_page( $page_title, $menu_title, $capability, $menu_slug, $fun
  * @return string|false The resulting page's hook_suffix, or false if the user does not have the capability required.
  */
 function add_dashboard_page( $page_title, $menu_title, $capability, $menu_slug, $function = '', $position = null ) {
-	return add_submenu_page( 'index.php', $page_title, $menu_title, $capability, $menu_slug, $function, $position );
+	return add_submenu_page( 'admin.php', $page_title, $menu_title, $capability, $menu_slug, $function, $position );
 }
 
 /**

@@ -9823,7 +9823,7 @@ msgctxt "comment status"
 msgid "Approved"
 msgstr "Approved"
 
-#. translators: 1: index.php, 2: Documentation URL, 3: style.css
+#. translators: 1: admin.php, 2: Documentation URL, 3: style.css
 #: wp-includes/class-wp-theme.php:316
 msgid "Template is missing. Standalone themes need to have a %1$s template file. <a href=\"%2$s\">Child themes</a> need to have a Template header in the %3$s stylesheet."
 msgstr "Template is missing. Standalone themes need to have a %1$s template file. <a href=\"%2$s\">Child themes</a> need to have a Template header in the %3$s stylesheet."
