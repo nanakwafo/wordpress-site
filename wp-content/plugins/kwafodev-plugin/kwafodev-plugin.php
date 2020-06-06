@@ -18,10 +18,15 @@ if(! defined('ABSPATH')){
     die;
 }
 
-
+if(file_exists(dirname(__FILE__).'/vendor/autoload.php')){
+    require_once dirname(__FILE__).'/vendor/autoload.php';
+}
+use Inc\Activate;
+use Inc\Deactivate;
 /**
  * Class KwafodevPlugin
  */
+
 class KwafodevPlugin
 {
     public $plugin;
@@ -43,7 +48,12 @@ class KwafodevPlugin
             add_action('admin_menu', array($this,'add_admin_pages'));
             add_filter('plugin_action_links_'.$this->plugin,array($this,'settings_link'));
     }
-  public function settings_link($links){
+
+    /**
+     * @param $links
+     * @return mixed
+     */
+    public function settings_link($links){
     //add custom settings link
       $settings_link ='<a href="admin.php?page=kwafodev_plugin">Setting</a>';
       array_push($links,$settings_link);
@@ -64,17 +74,17 @@ class KwafodevPlugin
      * activation method
      */
     public function activate(){
-        require_once plugin_dir_path(__FILE__).'inc/kwafodev-plugin-activate.php';
+       // require_once plugin_dir_path(__FILE__).'inc/Activate.php';
         $this->custom_post_type();
-        KwafodevPluginActivate::activate();
+        Activate::activate();
     }
 
     /**
      *deactivation method
      */
     public function deactivate(){
-        require_once plugin_dir_path(__FILE__).'inc/kwafodev-plugin-deactivate.php';
-        KwafodevPluginDeactivate::deactivate();
+      //  require_once plugin_dir_path(__FILE__).'inc/Deactivate.php';
+       Deactivate::deactivate();
     }
     /**
      *custom post_type method
