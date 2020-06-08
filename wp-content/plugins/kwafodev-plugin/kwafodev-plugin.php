@@ -21,6 +21,7 @@
 if(! defined('ABSPATH')){
     die;
 }
+
 /**
  * Require once the Composer Autoload
  */

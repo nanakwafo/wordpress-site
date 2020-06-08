@@ -4,16 +4,31 @@
  */
 namespace Inc\Pages;
 use \Inc\Base\BaseController;
+use \Inc\Api\SettingsApi;
+
 class Admin extends BaseController{
+    public $settings;
+    public function __construct()
+    {
+        $this->settings= new SettingsApi();
+    }
 
     public function  register(){
-        add_action('admin_menu', array($this,'add_admin_pages'));
+
+        $pages=[
+            [
+            'page_title'=>   'Kwafodev Plugin',
+            'menu_title'=>  'Kwafodev',
+            'capability'=> 'manage_options',
+            'menu_slug'=> 'kwafodev_plugin',
+            'callback'=> function(){echo '<h1>plugin</h1>';},
+            'icon_url'=> 'dashicons-menu',
+            'position'=> 110
+          ]
+            //different admin menu
+
+        ];
+        $this->settings->addPages($pages)->register();
     }
-    public function  add_admin_pages(){
-        add_menu_page('Kwafodev Plugin','Kwafodev','manage_options','kwafodev_plugin',array($this,'admin_index'),'dashicons-menu',110);
-    }
-    public  function admin_index(){
-        //require templates
-        require_once $this->plugin_path . 'templates/admin.php';
-    }
+
 }
